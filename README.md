@@ -1,6 +1,6 @@
 # Steem Account Creation Service
 
-A service for creating Steem accounts with automatic VESTS delegation.
+A service for creating Steem accounts with automatic VESTS delegation (accounts must be claimed before).
 
 ## Setup
 
