@@ -30,8 +30,40 @@ npm start
 ## API Endpoints
 
 ### Create Account
+
+Using cURL:
 ```bash
 curl -H "x-api-key: your_api_key_here" http://localhost:3000/createwallet/username
+```
+
+Using Axios:
+```javascript
+const axios = require('axios');
+
+async function createSteemAccount(username) {
+  try {
+    const response = await axios.get('http://localhost:3000/createwallet/' + username, {
+      headers: {
+        'x-api-key': 'your_api_key_here'
+      }
+    });
+    console.log('Account created successfully:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error creating account:', error.response?.data || error.message);
+    throw error;
+  }
+}
+
+// Usage
+createSteemAccount('username')
+  .then(keys => {
+    console.log('Owner Key:', keys.ownerKey);
+    console.log('Active Key:', keys.activeKey);
+    console.log('Posting Key:', keys.postingKey);
+    console.log('Memo Key:', keys.memo_key);
+  })
+  .catch(console.error);
 ```
 
 Response:
