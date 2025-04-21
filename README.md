@@ -1,16 +1,14 @@
 # Steem Account Creation Service
 
-This service allows you to create new Steem accounts with automatic delegation of VESTS. It's designed to be used as a backend service for applications that need to create Steem accounts programmatically.
+Create Steem accounts with automatic VESTS delegation.
 
 ## Setup
 
-1. Clone the repository
-2. Install dependencies:
 ```bash
 npm install
 ```
 
-3. Create a `.env` file with the following variables:
+Create `.env`:
 ```env
 PORT=3000
 STEEMD_URL=https://api.steemit.com
@@ -23,77 +21,41 @@ ACCOUNT_PREFIX=dw-
 POSTING_AUTHORITIES="drugwars,fundition,future.app"
 ```
 
-4. Start the server:
+Start server:
 ```bash
 npm start
 ```
 
-## API Usage
+## API
 
-### Create a New Steem Account
+### Create Account
+```bash
+curl -H "x-api-key: your_api_key_here" http://localhost:3000/createwallet/username
+```
 
-**Endpoint:** `GET /createwallet/:name`
-
-**Parameters:**
-- `:name` - String containing the name to use for account generation (minimum 3 characters)
-
-**Headers:**
-- `x-api-key`: Your API key
-
-**Response:**
+Response:
 ```json
 {
-  "ownerKey": "STM...",
-  "activeKey": "STM...",
-  "postingKey": "STM...",
+  "ownerKey": "5J...",
+  "activeKey": "5J...",
+  "postingKey": "5J...",
   "memo_key": "STM..."
 }
 ```
 
-**Example Requests:**
+## Configuration
 
-Using curl:
-```bash
-curl -H "x-api-key: your_api_key_here" http://localhost:3000/createwallet/john
-```
+- `SHOULD_DELEGATE`: Enable/disable VESTS delegation
+- `DELEGATION_AMOUNT`: Amount of VESTS to delegate
+- `ACCOUNT_PREFIX`: Prefix for account names
+- `POSTING_AUTHORITIES`: Comma-separated list of posting authorities
 
-Using JavaScript fetch:
-```javascript
-fetch('http://localhost:3000/createwallet/john', {
-  headers: {
-    'x-api-key': 'your_api_key_here'
-  }
-})
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error('Error:', error));
-```
+## Security
 
-Using Python requests:
-```python
-import requests
-
-headers = {
-    'x-api-key': 'your_api_key_here'
-}
-
-response = requests.get(
-    'http://localhost:3000/createwallet/john',
-    headers=headers
-)
-
-print(response.json())
-```
-
-**Example Response:**
-```json
-{
-  "ownerKey": "STM8Qyk...",
-  "activeKey": "STM7Qyk...",
-  "postingKey": "STM6Qyk...",
-  "memo_key": "STM5Qyk..."
-}
-```
+- API key authentication
+- CORS protection
+- Helmet security headers
+- HTTPS recommended for production
 
 ## Account Format
 
@@ -114,15 +76,6 @@ Example: For name `john`, the account name might be: `dw-j4x2john3`
 - CORS protection
 - Security headers via Helmet
 - API key authentication
-
-## Configuration
-
-The service can be configured through environment variables:
-
-- `SHOULD_DELEGATE`: Set to `true` to enable automatic delegation (default: true)
-- `DELEGATION_AMOUNT`: Amount of VESTS to delegate to new accounts (default: "6020.000000 VESTS")
-- `ACCOUNT_PREFIX`: Prefix for generated account names (default: "dw-")
-- `POSTING_AUTHORITIES`: Comma-separated list of accounts to add as posting authorities
 
 ## Notes
 
