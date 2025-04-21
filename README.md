@@ -12,7 +12,7 @@ Create `.env`:
 ```env
 PORT=3000
 STEEMD_URL=https://api.steemit.com
-CREATOR_ACCOUNT=fundition
+CREATOR_ACCOUNT=creator_account
 CREATOR_KEY=your_creator_private_key
 API_KEY=your_secure_api_key_here
 SHOULD_DELEGATE=true
