@@ -16,10 +16,9 @@ router.get('/createwallet/:name', (req, res) => {
       return res.status(400).json({ error: 'Name must be at least 3 characters long' });
     }
 
-    let pass = Array(10).fill("0123456789abcdefghijklmnopqrstuvwxyz").map(function (x) { return x[Math.floor(Math.random() * x.length)] }).join('');
+    let password = Array(10).fill("0123456789abcdefghijklmnopqrstuvwxyz").map(function (x) { return x[Math.floor(Math.random() * x.length)] }).join('');
     let ops = [];
     let steem_name = accountPrefix + name;
-    let password = pass;
 
     let privateKey = PrivateKey.fromString(creatorKey);
     const ownerKey = PrivateKey.fromLogin(steem_name, password, 'owner');
